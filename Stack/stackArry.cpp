@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <ctype.h>
+
+#define ISUNSIGNED(a) (a>=0 && ~a>=0) 
 
 struct Stack
 {
@@ -62,15 +65,45 @@ int peek(struct Stack* stack)
 
 int main()
 {
-    struct Stack* stack = createStack(10);
- 
-    push(stack, 10);
-    push(stack, 20);
-    push(stack, 30);
- 
-    printf("%d popped from stack\n", pop(stack));
- 
-    printf("Top item is %d\n", peek(stack));
+	unsigned val;
+	int ch;
+	printf("Enter the size of stack\n");
+	scanf("%d",&val);
+	if(!ISUNSIGNED(val))
+    	{
+    		printf("Enter a integer value..!! :)..\n");
+    		return -1;
+    	}
+    struct Stack* stack = createStack(val);
+    printf("Enter the following to execute your operation\n1. Push value into stack.\n2. Pop value from stack.\n3. Peek the top value\n");
+    while(true)
+    {
+    	printf("Enter your choice\n");
+    	scanf("%d", &ch);
+    	if(!isdigit(ch))
+    	{
+    		printf("Enter number b/w 1-3..!! :)..\n");
+    		return -1;
+    	}
+    	switch(ch)
+    	{
+    		case 1:
+    		printf("Enter a value to push\n");
+    		int val;
+    		scanf("%d",&val);
+    		push(stack,val);
+    		break;
+    		case 2:
+    		printf("%d Popped from stack\n", pop(stack));
+    		break;
+    		case 3:
+    		printf("Top item is %d\n", peek(stack));
+    		break;
+    		default:
+    		printf("Please enter a corrent choice\n");
+
+    	}
+    }
  
     return 0;
 }
