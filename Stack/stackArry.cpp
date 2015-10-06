@@ -85,6 +85,8 @@ int main()
     		flag = 1;
     }
     struct Stack* stack = createStack(nSiz);
+    if(!stack)
+    	return -1;
     printf("Enter the following to execute your operation\n1. Push value into stack.\n2. Pop value from stack.\n3. Peek the top value\n4. Quit.\n");
     while(true)
     {
