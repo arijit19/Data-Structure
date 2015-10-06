@@ -65,33 +65,46 @@ int peek(struct Stack* stack)
 
 int main()
 {
-	unsigned val;
-	int ch;
-	printf("Enter the size of stack\n");
-	scanf("%d",&val);
-	if(!ISUNSIGNED(val))
+	char siz[64];
+	
+	char inp[64];
+	
+	int nSiz;
+    int end = 0; // use to note end of scanning and catch trailing junk
+    int flag =0 ;
+
+    while(flag!=1)
+    {
+    	printf("Enter the size of stack\n");
+    	fgets( siz, sizeof(siz), stdin);
+    	if (sscanf( siz, " %d %n", &nSiz, &end) != 1 || siz[end] != '\0') 
     	{
-    		printf("Enter a integer value..!! :)..\n");
-    		return -1;
+        	printf("Must enter integer\n");
     	}
-    struct Stack* stack = createStack(val);
-    printf("Enter the following to execute your operation\n1. Push value into stack.\n2. Pop value from stack.\n3. Peek the top value\n");
+    	else
+    		flag = 1;
+    }
+    struct Stack* stack = createStack(nSiz);
+    printf("Enter the following to execute your operation\n1. Push value into stack.\n2. Pop value from stack.\n3. Peek the top value\n4. Quit.\n");
     while(true)
     {
     	printf("Enter your choice\n");
-    	scanf("%d", &ch);
-    	if(!isdigit(ch))
+    	fgets( inp, sizeof(inp), stdin);
+		int nInp;
+    	int endInp = 0; // use to note end of scanning and catch trailing junk
+    	if (sscanf( inp, " %d %n", &nInp, &endInp) != 1 || inp[endInp] != '\0') 
     	{
-    		printf("Enter number b/w 1-3..!! :)..\n");
-    		return -1;
+    	    printf("Enter number b/w 1-4..!! :)..\n");
+    	    break;
     	}
-    	switch(ch)
+    	switch(nInp)
     	{
     		case 1:
     		printf("Enter a value to push\n");
     		int val;
     		scanf("%d",&val);
     		push(stack,val);
+    		while((getchar())!='\n');
     		break;
     		case 2:
     		printf("%d Popped from stack\n", pop(stack));
@@ -99,10 +112,14 @@ int main()
     		case 3:
     		printf("Top item is %d\n", peek(stack));
     		break;
+    		case 4:
+    		break;
     		default:
     		printf("Please enter a corrent choice\n");
 
     	}
+    	if(nInp==4)
+            break;
     }
  
     return 0;
