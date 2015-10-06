@@ -9,14 +9,6 @@ struct StackNode
 	struct StackNode* nextPtr;
 };
 
-struct StackNode* InitStack()
-{
-	struct StackNode* stack = (struct StackNode*) malloc(sizeof(struct StackNode));
-	stack->data = -1;
-	stack->nextPtr = NULL;
-	return stack;
-}
-
 int isEmpty(struct StackNode* stack)
 {
 	if(!stack)
